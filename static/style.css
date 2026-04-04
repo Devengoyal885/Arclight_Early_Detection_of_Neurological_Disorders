@@ -1,0 +1,190 @@
+/* GLOBAL */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #5f5fc4, #7b5be6);
+    color: white;
+}
+
+/* LAYOUT */
+.app {
+    display: flex;
+    height: 100vh;
+}
+
+/* LEFT PANEL */
+.left-panel {
+    width: 35%;
+    padding: 40px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* BRAND */
+.brand h1 {
+    margin: 0;
+    font-weight: 700;
+}
+
+.brand p {
+    opacity: 0.7;
+    margin-bottom: 40px;
+}
+
+/* UPLOAD CARD */
+.upload-card {
+    background: rgba(255,255,255,0.1);
+    padding: 25px;
+    border-radius: 20px;
+}
+
+/* DROP AREA */
+.drop-area {
+    border: 2px dashed rgba(255,255,255,0.4);
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+}
+
+input[type="file"] {
+    margin-top: 10px;
+    color: white;
+}
+
+/* FORM */
+.form-group {
+    margin-top: 20px;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    margin-top: 5px;
+}
+
+/* BUTTON */
+.btn-primary {
+    width: 100%;
+    margin-top: 25px;
+    padding: 12px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(135deg, #ff7a18, #ffb347);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    transform: scale(1.05);
+}
+
+/* RIGHT PANEL */
+.right-panel {
+    width: 65%;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* RESULT */
+.result-container {
+    width: 100%;
+    max-width: 600px;
+}
+
+/* MAIN RESULT */
+.main-result {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.main-result h1 {
+    font-size: 60px;
+    margin: 0;
+}
+
+.main-result p {
+    opacity: 0.7;
+}
+
+/* STATUS COLORS */
+.green { color: #00ff9d; }
+.red { color: #ff4d4d; }
+.orange { color: #ffb347; }
+
+/* STATS */
+.stats {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    flex: 1;
+    background: rgba(255,255,255,0.1);
+    padding: 15px;
+    border-radius: 15px;
+}
+
+.stat-card span {
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.stat-card h2 {
+    margin: 5px 0 0;
+}
+
+/* PROBABILITIES */
+.prob-section {
+    margin-top: 20px;
+}
+
+.prob-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.prob-label {
+    width: 60px;
+}
+
+.prob-bar {
+    flex: 1;
+    height: 10px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
+    margin: 0 10px;
+    overflow: hidden;
+}
+
+.fill {
+    height: 100%;
+    background: linear-gradient(135deg, #00ff9d, #00c3ff);
+}
+
+/* EMPTY */
+.empty-state {
+    text-align: center;
+    opacity: 0.7;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .app {
+        flex-direction: column;
+    }
+
+    .left-panel, .right-panel {
+        width: 100%;
+    }
+}

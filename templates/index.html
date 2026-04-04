@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MRI Screening</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- LEFT PANEL -->
+    <div class="left-panel">
+
+        <div class="brand">
+            <h1>MRI Screening</h1>
+            <p>AI Brain Diagnosis System</p>
+        </div>
+
+        <div class="upload-card">
+
+            <h2>Upload MRI Scan</h2>
+
+            <form method="POST" enctype="multipart/form-data">
+
+                <div class="drop-area">
+                    <p>Drag & Drop MRI</p>
+                    <input type="file" name="file" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Detection Mode</label>
+                    <select name="mode">
+                        <option value="binary">Binary (CN vs AD)</option>
+                        <option value="multi">Multiclass (CN vs MCI vs AD)</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-primary">Analyze Scan</button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+
+        {% if result %}
+        <div class="result-container">
+
+            <!-- BIG RESULT -->
+            <div class="main-result">
+                <h1 class="{{ result.color }}">{{ result.prediction }}</h1>
+                <p>Prediction Result</p>
+            </div>
+
+            <!-- STATS -->
+            <div class="stats">
+
+                <div class="stat-card">
+                    <span>Confidence</span>
+                    <h2>{{ result.confidence }}</h2>
+                </div>
+
+                <div class="stat-card">
+                    <span>Clinical Insight</span>
+                    <p>{{ result.remark }}</p>
+                </div>
+
+            </div>
+
+            <!-- PROBABILITIES -->
+            <div class="prob-section">
+                <h3>Class Probabilities</h3>
+
+                {% for p in result.probs %}
+                <div class="prob-row">
+
+                    <div class="prob-label">
+                    {% if loop.index0 == 0 %}
+                        CN
+                    {% elif loop.index0 == 1 %}
+                        {% if result.probs|length == 2 %}
+                            AD
+                        {% else %}
+                            MCI
+                        {% endif %}
+                    {% elif loop.index0 == 2 %}
+                        AD
+                    {% endif %}
+                    </div>
+
+                    <div class="prob-bar">
+                        <div class="fill" style="width: {{ (p * 100)|round(2) }}%"></div>
+                    </div>
+
+                    <div class="prob-value">{{ p }}</div>
+
+                </div>
+                {% endfor %}
+
+            </div>
+
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <h2>Upload an MRI to see results</h2>
+        </div>
+        {% endif %}
+
+    </div>
+
+</div>
+
+</body>
+</html>
