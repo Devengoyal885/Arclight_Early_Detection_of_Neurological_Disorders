@@ -1,4 +1,4 @@
-name: Deploy Frontend to Vercel
+name: Deploy Frontend to Netlify
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   deploy:
-    name: Deploy to Vercel
+    name: Deploy to Netlify
     runs-on: ubuntu-latest
 
     steps:
@@ -20,12 +20,20 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Install Vercel CLI
-        run: npm install -g vercel
-
-      - name: Deploy to Vercel
+      - name: Install dependencies
         working-directory: frontend
-        run: vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
+        run: npm ci
+
+      - name: Build
+        working-directory: frontend
+        run: npm run build
         env:
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+
+      - name: Deploy to Netlify
+        uses: netlify/actions/cli@master
+        with:
+          args: deploy --dir=frontend/dist --prod
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
